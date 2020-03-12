@@ -1,0 +1,28 @@
+.blog-list {
+  margin: 20px;
+}
+
+.blog-entry {
+  background-color: aquamarine;
+  border-radius: 10px;
+  padding: 20px;
+  margin: 10px 0;
+}
+
+.blog-entry-title {
+  margin: 10px 0;
+}
+
+.blog-entry-title a {
+  text-decoration: none;
+  color: black;
+}
+
+.blog-entry-title a:hover {
+  text-decoration: none;
+  color: red;
+}
+
+.blog-entry-content {
+
+}

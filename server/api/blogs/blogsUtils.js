@@ -4,7 +4,7 @@ const showdown = require('showdown');
 
 const readDir = promisify(fs.readdir);
 const readFile = promisify(fs.readFile);
-const converter = new showdown.Converter();
+const converter = new showdown.Converter({strikethrough: true});
 
 const db = `${__dirname}/../../db/blogs`;
 
@@ -31,7 +31,14 @@ async function getBlogs() {
 async function getBlog(id) {
   const content = await getBlogContent(`post_${id}.md`);
   const html = converter.makeHtml(content);
-  return blogObject(html);
+  return blogObject(html, id);
+}
+
+async function getBlogEdit(id) {  
+  const content = await getBlogContent(`post_${id}.md`);  
+  const blog = blogObject(converter.makeHtml(content), id);
+  blog.content = content.replace(/^#.*\n+/, '');
+  return blog;
 }
 
 async function getBlogContent(file) {
@@ -61,4 +68,12 @@ async function createBlog(blog) {
   fs.writeFileSync(`${db}/post_${id}.md`, fileContent); 
 }
 
-module.exports = { getBlogs, getBlog, createBlog };
+async function editBlog(blog, id) {
+  const { title, content } = blog;
+
+  const fileContent = `# ${title}\n\n${content}`;
+
+  fs.writeFileSync(`${db}/post_${id}.md`, fileContent); 
+}
+
+module.exports = { getBlogs, getBlog, createBlog, getBlogEdit, editBlog };

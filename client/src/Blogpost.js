@@ -1,8 +1,11 @@
 import React, { useState, useEffect} from 'react';
+import { Link } from 'react-router-dom';
 import axios from 'axios';
+import './styles/Blogpost.css';
 
 export default function Blogpost(props) {
-  const id = props.match.url.replace('/blog/', '');
+  const { url } = props.match;
+  const id = url.replace('/blogs/', '');
   const [blog, setBlog] = useState(null);
 
   useEffect(() => {
@@ -19,20 +22,22 @@ export default function Blogpost(props) {
     const { title, content } = blog;
     
     return (
-      <div className="blog-post" key={id + 1}>
+      <>
         <h1 className="blog-post-title">{title}</h1>
         <div className="blog-post-content" dangerouslySetInnerHTML={{__html: content}}/>
-      </div>
+        <Link className='blog-post-btn' to={`${url}/edit`}>Edit</Link>
+        <Link className='blog-post-btn' to={'/blogs'}>Back to all the posts</Link>
+      </>
     )
   }
 
   return (
-    <section className="blog-list">
+    <div className="blog-post" key={id + 1}>
       {
         blog ?
         template(blog) :
         'Loading...'
       }
-    </section>
+    </div>
   )
 }

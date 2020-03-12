@@ -7,6 +7,7 @@ import About from './About';
 import Blog from './Blog';
 import CreateBlog from './CreateBlog';
 import Blogpost from './Blogpost'
+import EditBlog from './EditBlog'
 import './styles/App.css';
 
 function App() {
@@ -25,7 +26,8 @@ function App() {
           <Route exact path='/blogs/create'>
             <CreateBlog />
           </Route>
-          <Route path={'/blog/:id'} component={Blogpost} />
+          <Route path={'/blogs/:id/edit'} component={EditBlog} />
+          <Route exact path={'/blogs/:id'} component={Blogpost} />
           <Route path='/'>
             <Home />
           </Route>

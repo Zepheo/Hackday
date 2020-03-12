@@ -1,11 +1,13 @@
 import React from 'react'
 import axios from 'axios';
 import { useHistory } from 'react-router-dom';
+import './styles/CreateBlog.css';
 
 export default function CreateBlog() {
   const history = useHistory();
 
-  async function createBlog() {
+  const createBlog = async (e) => {
+    e.preventDefault();
     const blogTitle = document.getElementById('title').value;
     const blogContent = document.getElementById('content').value;
     
@@ -24,13 +26,13 @@ export default function CreateBlog() {
 
   return (
     <section className='create-blog'>
-      <form className='create-blog-form'>
-        <p>Title:</p>
-        <input type='text' id='title' placeholder='Title'/>
-        <p>Content:</p>
-        <input type='text' id='content' placeholder='Blog content'/>
+      <form className='create-blog-form' onSubmit={createBlog}>
+        <p className='create-blog-form-label'>Title:</p>
+        <input className='create-blog-form-title' type='text' id='title' placeholder='Title' required/>
+        <p className='create-blog-form-label'>Content:</p>
+        <textarea className='create-blog-form-content' type='text' rows='20' spellCheck='false' id='content' placeholder='Blog content' required/>
         <br/>
-        <button type='button' onClick={() => createBlog()}>Create</button>
+        <input className='create-blog-form-btn' type='submit' value='Create'/>
       </form>
     </section>
   )

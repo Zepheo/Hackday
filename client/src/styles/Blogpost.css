@@ -1,0 +1,15 @@
+.blog-post {
+  background-color: aquamarine;
+  border-radius: 10px;
+  padding: 20px;
+  margin: 20px;
+}
+
+.blog-post-title {
+  margin: 20px 0;
+  text-align: center;
+}
+
+.blog-post-content {
+  margin: 0 20px;
+}

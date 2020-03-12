@@ -1,0 +1,32 @@
+.create-blog {
+  background-color: aquamarine;
+  border-radius: 10px;
+  padding: 20px;
+  margin: 20px;
+}
+
+.create-blog-form-label {
+  margin-top: 20px;
+}
+
+.create-blog-form-title {
+  width: 100%;
+  font-size: 24px;
+}
+
+.create-blog-form-content {
+  width: 100%;
+  font-size: 16px;
+  resize: none;
+}
+
+.create-blog-form-btn {
+  margin-top: 20px;
+  font-size: 16px;
+}
+
+.create-blog-form-btn:hover {
+  cursor: pointer;
+  margin-top: 20px;
+  font-size: 16px;
+}

@@ -27,9 +27,36 @@ router.post('/', async (req, res, next) => {
   }
 });
 
-router.get('/:id', async (req, res, next) => {
+
+router.get('/:id', async (req, res, next) => {  
   try {
     const result = await blogsApi.getBlog(req.params.id);
+    res.json(result);
+  } catch(err) {
+    res.sendStatus(500);
+    next(err);
+  }
+});
+
+router.put('/:id', async (req, res, next) => {  
+  const { title, content } = req.body;
+  const { id } = req.params;
+  if( title && content) {
+    try {
+      await blogsApi.editBlog({ title, content }, id);
+      res.sendStatus(204);
+    } catch(err) {
+      res.sendStatus(500);
+      next(err);
+    }
+  } else {
+    res.send('Missing title or content');
+  }
+});
+
+router.get('/:id/edit', async (req, res, next) => {  
+  try {
+    const result = await blogsApi.getBlogEdit(req.params.id);
     res.json(result);
   } catch(err) {
     res.sendStatus(500);
