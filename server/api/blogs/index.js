@@ -12,6 +12,21 @@ router.get('/', async (req, res, next) => {
   }
 });
 
+router.post('/', async (req, res, next) => {
+  const { title, content } = req.body;
+  if( title && content) {
+    try {
+      await blogsApi.createBlog({ title, content });
+      res.sendStatus(201);
+    } catch(err) {
+      res.sendStatus(500);
+      next(err);
+    }
+  } else {
+    res.send('Missing title or content');
+  }
+});
+
 router.get('/:id', async (req, res, next) => {
   try {
     const result = await blogsApi.getBlog(req.params.id);
@@ -21,6 +36,8 @@ router.get('/:id', async (req, res, next) => {
     next(err);
   }
 });
+
+
 
 module.exports = router;
 

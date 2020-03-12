@@ -1,5 +1,6 @@
 const blogUtils = require('./blogsUtils');
 const assert = require('assert');
+const fs = require('fs');
 
 describe('blogUtils', () => {
   describe('getBlogs', () => {
@@ -23,6 +24,6 @@ describe('blogUtils', () => {
       '<p>This it the first post on the blog just to have something to server up at the start testing a little bit more</p>'
 
       assert.equal(res, expected);
-    })
+    });
   });
 });
