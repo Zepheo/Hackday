@@ -20,7 +20,7 @@ paragraph
 
 a ~~strikethrough~~ a
 
-:smile:
+this is a :smile: smile emoji
 
 * item 1
 * item 2

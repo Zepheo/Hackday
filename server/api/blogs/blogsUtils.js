@@ -5,7 +5,7 @@ const fm = require('front-matter');
 
 const readDir = promisify(fs.readdir);
 const readFile = promisify(fs.readFile);
-const converter = new showdown.Converter({strikethrough: true});
+const converter = new showdown.Converter({strikethrough: true, emoji: true});
 
 const db = `${__dirname}/../../db/blogs`;
 

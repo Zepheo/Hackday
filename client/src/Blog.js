@@ -23,7 +23,6 @@ export default function Blog() {
 
   const template = (blog, key) => {
     const { id, title, content, edited } = blog;
-    console.log(edited);
     
     return (
       <div className="blog-entry" key={key} onClick={() => redirect(id)}>
