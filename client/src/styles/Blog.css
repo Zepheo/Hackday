@@ -13,12 +13,7 @@
   margin: 10px 0;
 }
 
-.blog-entry-title a {
-  text-decoration: none;
-  color: black;
-}
-
-.blog-entry-title a:hover {
+.blog-entry:hover .blog-entry-title {
   text-decoration: none;
   color: red;
 }

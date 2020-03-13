@@ -7,8 +7,8 @@ export default function Navigation() {
     <nav>
       <ul className="nav">
         <li><Link to='/' className="nav-link">Home</Link></li>
-        <li><Link to='/blogs' className="nav-link">Blogs</Link></li>
-        <li><Link to='/blogs/create' className="nav-link">Create new blog</Link></li>
+        <li><Link to='/blogs' className="nav-link">Blog</Link></li>
+        <li><Link to='/blogs/create' className="nav-link">Create new blogpost</Link></li>
         <li><Link to='/about' className="nav-link">About</Link></li>
       </ul>
     </nav>
