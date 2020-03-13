@@ -22,12 +22,17 @@ export default function Blog() {
   };
 
   const template = (blog, key) => {
-    const { id, title, content } = blog;
+    const { id, title, content, edited } = blog;
+    console.log(edited);
     
     return (
       <div className="blog-entry" key={key} onClick={() => redirect(id)}>
         <h1 className="blog-entry-title">{title}</h1>
         <div className="blog-entry-content" dangerouslySetInnerHTML={{__html: content}}/>
+        {edited ?
+          <div className="blog-entry-edited">(edited)</div> :
+          ''
+        }
       </div>
     )
   }

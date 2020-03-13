@@ -7,6 +7,7 @@
   border-radius: 10px;
   padding: 20px;
   margin: 10px 0;
+  position: relative;
 }
 
 .blog-entry-title {
@@ -18,6 +19,12 @@
   color: red;
 }
 
-.blog-entry-content {
-
+.blog-entry-edited {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  background-color: red;
+  padding: 5px;
+  border-radius: 4px;
+  font-style: italic;
 }

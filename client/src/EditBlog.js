@@ -1,6 +1,6 @@
 import React, { useState, useEffect }from 'react'
 import axios from 'axios';
-import { useHistory } from 'react-router-dom';
+import { useHistory, Link } from 'react-router-dom';
 import './styles/EditBlog.css';
 
 export default function EditBlog(props) {
@@ -49,6 +49,7 @@ export default function EditBlog(props) {
             <textarea className='edit-blog-form-content' type='text' rows='20' spellCheck='false' id='content' placeholder='Blog content' defaultValue={blog.content} required/>
             <br/>
             <input className='edit-blog-form-btn' type='submit' value='Edit'/>
+            <Link className='edit-blog-form-btn' to={`/blogs/${id}`}>Back to the post</Link>
           </form> :
     'Loading...';
 

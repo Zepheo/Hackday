@@ -19,11 +19,15 @@ export default function Blogpost(props) {
   };
 
   const template = (blog) => {
-    const { title, content } = blog;
+    const { title, content, edited } = blog;
     
     return (
       <>
         <h1 className="blog-post-title">{title}</h1>
+        {edited ?
+          <div className="blog-post-edited">(edited)</div> :
+          ''
+        }
         <div className="blog-post-content" dangerouslySetInnerHTML={{__html: content}}/>
         <Link className='blog-post-btn' to={`${url}/edit`}>Edit</Link>
         <Link className='blog-post-btn' to={'/blogs'}>Back to all the posts</Link>
