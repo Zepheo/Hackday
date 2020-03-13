@@ -1,6 +1,7 @@
 const fs = require('fs');
 const { promisify } = require('util');
 const showdown = require('showdown');
+const fm = require('front-matter');
 
 const readDir = promisify(fs.readdir);
 const readFile = promisify(fs.readFile);
@@ -15,14 +16,11 @@ function sortName(a,b) {
 
 async function getBlogs() {  
   const blogList = (await readDir(db)).sort((a,b) => sortName(a,b));
-  
-
-  const blogListWithExcerpt = await Promise.all(
+    const blogListWithExcerpt = await Promise.all(
     blogList.map(async (blog) => {
-      const id = blog.replace(/^post_|\.md$/g, '')
+      // const id = blog.replace(/^post_|\.md$/g, '')
       const content = await getBlogContent(blog)
-      const html = converter.makeHtml(content.substring(0,100) + '...');
-      return blogObject(html, id);
+      return blogObject(content, true)
     }))
   
   return blogListWithExcerpt;
@@ -30,26 +28,27 @@ async function getBlogs() {
 
 async function getBlog(id) {
   const content = await getBlogContent(`post_${id}.md`);
-  const html = converter.makeHtml(content);
-  return blogObject(html, id);
+  return blogObject(content, false);
 }
 
 async function getBlogEdit(id) {  
   const content = await getBlogContent(`post_${id}.md`);  
-  const blog = blogObject(converter.makeHtml(content), id);
-  blog.content = content.replace(/^#.*\n+/, '');
-  return blog;
+  return blogObject(content, false, true);
 }
 
 async function getBlogContent(file) {
-  return (await readFile(`${db}/${file}`)).toString();
+  return fm((await readFile(`${db}/${file}`)).toString());
 }
 
-function blogObject(blog, id) {
-  const header = blog.match(/^<h1 id=".*">.*<\/h1>/i)[0];
-  const title = header.replace(/<h1 id=".*">|<\/h1>/g, '');
-  const content = blog.replace(/^<h1 id=".*">.*<\/h1>/i, '');
-  return { id, title, content };
+function blogObject(data, excerpt, edit) {
+  const { attributes, body } = data
+  const { title, id, edited } = attributes
+  const content = excerpt ? converter.makeHtml(body.substring(0, 100) + '...') : edit ? body : converter.makeHtml(body);
+  return {
+     id,
+     title,
+     content,
+     edited };
 }
 
 const nextId = (ids) => {
@@ -63,7 +62,7 @@ async function createBlog(blog) {
     .map(blog => blog.replace(/^post_|\.md$/g, ''));
 
   const id = nextId(blogListIds);
-  const fileContent = `# ${title}\n\n${content}`;
+  const fileContent = `---\ntitle: ${title}\nid: ${id}\nedited: ${false}\n---\n${content}`;
 
   fs.writeFileSync(`${db}/post_${id}.md`, fileContent); 
 }
@@ -71,7 +70,7 @@ async function createBlog(blog) {
 async function editBlog(blog, id) {
   const { title, content } = blog;
 
-  const fileContent = `# ${title}\n\n${content}`;
+  const fileContent = `---\ntitle: ${title}\nid: ${id}\nedited: ${true}\n---\n${content}`;
 
   fs.writeFileSync(`${db}/post_${id}.md`, fileContent); 
 }

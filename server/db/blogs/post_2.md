@@ -1,4 +1,8 @@
-# Second post
+---
+title: Second post
+id: 2
+edited: false
+---
 
 This is the second post so there is two different posts. This one also has a bit longer content.
 
